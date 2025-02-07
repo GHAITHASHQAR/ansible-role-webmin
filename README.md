@@ -1,38 +1,58 @@
-Role Name
-=========
+# Ansible Role: Webmin
 
-A brief description of the role goes here.
+This Ansible role automates the installation and configuration of **Webmin** on Ubuntu systems. It includes the installation of dependencies, repository configuration, Webmin setup, and configuration options.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Ansible 2.9+
+- Supported OS:
+  - Ubuntu 18.04, 20.04, or later
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Variable                       | Default Value          | Description |
+|--------------------------------|------------------------|-------------|
+| `webmin_port`                 | `10000`               | Port on which Webmin will be accessible. |
+| `webmin_listen`               | `0.0.0.0`             | IP address Webmin listens on. |
+| `webmin_ssl`                  | `1`                   | Enable or disable SSL (1 = enabled, 0 = disabled). |
+| `webmin_reverse_proxy_referer`| Not defined           | A comma-separated list of reverse proxy referers. |
 
-Dependencies
-------------
+## Tasks Overview
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+### Dependencies Installation
+The role installs essential packages required for Webmin to function properly, including Perl, SSL libraries, and PAM authentication modules.
 
-Example Playbook
-----------------
+### Repository Configuration
+The Webmin repository is added and the GPG key is installed to authenticate packages.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+### Webmin Installation
+The Webmin package is installed from the repository and configured based on user-defined variables.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+### Configuration Customization
+The following configurations are applied to `/etc/webmin/miniserv.conf`:
+- **Port**: The port Webmin will listen on.
+- **Listen Address**: The IP address Webmin listens on.
+- **SSL**: Whether SSL is enabled or disabled.
+- **Reverse Proxy Referer**: Optionally set a referer for reverse proxying.
 
-License
--------
+### Service Verification
+The role ensures Webmin is started and waits for the configured port to become accessible.
 
-BSD
+## Handlers
+- `restart webmin`: Restarts the Webmin service after configuration changes.
 
-Author Information
-------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+## Tags
+
+| Tag          | Purpose |
+|--------------|---------|
+| `dependencies` | Installs required dependencies for Webmin. |
+| `webmin`      | Installs and configures Webmin. |
+
+## License
+
+MIT
+
+## Author
+
+Maintained by [AIT-CS IaaS](https://github.com/ait-cs-IaaS).
