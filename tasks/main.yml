@@ -1,5 +1,19 @@
 ---
 # tasks file for webmin on Ubuntu
+# Dependencies
+- name: apt-get install dependencies
+  ansible.builtin.apt:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { state: "latest", name: "perl" }
+    - { state: "latest", name: "libnet-ssleay-perl" }
+    - { state: "latest", name: "openssl" }
+    - { state: "latest", name: "libauthen-pam-perl" }
+    - { state: "latest", name: "libpam-runtime" }
+    - { state: "latest", name: "libio-pty-perl" }
+    - { state: "latest", name: "apt-show-versions" }
+  tags: [ dependencies ]
 
 - name: apt-key add
   ansible.builtin.apt_key:
