@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Ghaith Ashqar
+  description: Ansible role to deploy Webmin and configure Shorewall firewall
+  company: AIT
+
+  license: license (GPL-2.0-or-later, MIT, etc)
+
+  min_ansible_version: 2.1
+
+
+
+  galaxy_tags: []
+
+
+dependencies: []
