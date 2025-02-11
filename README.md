@@ -40,18 +40,18 @@ The following configurations are applied to `/etc/webmin/miniserv.conf`:
 
 To ensure Webmin is accessible on port **443**, the following Shorewall rules need to be added.
 
-## Internal Access (LAN/Internal Network)
+## Internal Firewall Access (Soc Network to Firewall)
 If accessing Webmin from an internal network, add the following rule:
 
 ```sh
-ACCEPT   int   $FW   tcp   443
+ACCEPT   Soc   $FW   tcp   443
 ```
 
-- **int** → Internal network zone.
+- **Soc** → Internal network zone.
 - **$FW** → The firewall (server itself).
 - **tcp 443** → Allows HTTPS access.
 
-## External Access (DMZ to Firewall)
+## External Firewall Access (DMZ to Firewall)
 If accessing Webmin from a **DMZ (Demilitarized Zone)** or an external source, add:
 
 ```sh
