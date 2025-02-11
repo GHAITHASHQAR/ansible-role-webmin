@@ -1,6 +1,5 @@
 ---
 # tasks file for webmin on Ubuntu
-# Dependencies
 - name: apt-get install dependencies
   ansible.builtin.apt:
     name: "{{ item.name }}"
