@@ -35,6 +35,52 @@ The following configurations are applied to `/etc/webmin/miniserv.conf`:
 - **SSL**: Whether SSL is enabled or disabled.
 - **Reverse Proxy Referer**: Optionally set a referer for reverse proxying.
 
+
+# Shorewall Rules for Webmin Access
+
+To ensure Webmin is accessible on port **443**, the following Shorewall rules need to be added.
+
+## Internal Access (LAN/Internal Network)
+If accessing Webmin from an internal network, add the following rule:
+
+```sh
+ACCEPT   int   $FW   tcp   443
+```
+
+- **int** → Internal network zone.
+- **$FW** → The firewall (server itself).
+- **tcp 443** → Allows HTTPS access.
+
+## External Access (DMZ to Firewall)
+If accessing Webmin from a **DMZ (Demilitarized Zone)** or an external source, add:
+
+```sh
+ACCEPT   dmz   $FW   tcp   443
+```
+
+- **dmz** → Represents traffic from the DMZ.
+- **$FW** → The firewall (server itself).
+- **tcp 443** → Allows HTTPS access.
+
+## Restart Shorewall
+After adding the rules, apply the changes by restarting Shorewall:
+
+```sh
+shorewall restart
+```
+
+## Testing Access
+Try accessing Webmin via:
+
+```sh
+https://your-server-ip:443
+```
+
+This ensures Webmin is accessible while maintaining firewall security.
+
+---
+**Note:** Without these rules, Shorewall may block access to Webmin when the firewall is active.
+
 ### Service Verification
 The role ensures Webmin is started and waits for the configured port to become accessible.
 
