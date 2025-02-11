@@ -12,7 +12,7 @@ This Ansible role automates the installation and configuration of **Webmin** on 
 
 | Variable                       | Default Value          | Description |
 |--------------------------------|------------------------|-------------|
-| `webmin_port`                 | `10000`               | Port on which Webmin will be accessible. |
+| `webmin_port`                 | `443`               | Port on which Webmin will be accessible. |
 | `webmin_listen`               | `0.0.0.0`             | IP address Webmin listens on. |
 | `webmin_ssl`                  | `1`                   | Enable or disable SSL (1 = enabled, 0 = disabled). |
 | `webmin_reverse_proxy_referer`| Not defined           | A comma-separated list of reverse proxy referers. |
