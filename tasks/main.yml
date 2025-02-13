@@ -64,6 +64,30 @@
   notify: restart webmin
   tags: [ webmin ]  
 
+
+  - name: Copy certificate files from localhost to firewall hosts
+  ansible.builtin.copy:
+    src: "{{ src_cert_file }}/{{ item }}"  
+    dest: "{{ target_cert_path }}/{{ item }}"  
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - "{{ src_cert_file | basename }}.key"
+    - "{{ src_cert_file | basename }}.crt"
+  register: copy_result
+
+
+- name: Update Webmin SSL Certificate and Key Paths
+  ansible.builtin.blockinfile:
+    path: /etc/webmin/miniserv.conf
+    block: |
+      keyfile={{ target_cert_path }}/{{ src_cert_file | basename }}.key
+      certfile={{ target_cert_path }}/{{ src_cert_file | basename }}.crt
+  notify: restart webmin
+    
+
+
 - name: Wait 10 seconds for port {{ webmin_port }} to start up
   ansible.builtin.wait_for:
     port: "{{ webmin_port }}"

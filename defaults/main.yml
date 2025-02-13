@@ -2,11 +2,19 @@
 # Default webmin variables
 
 #Webmin ports to listen on
-webmin_listen: "10000"
-webmin_port: "10000"
+webmin_listen: "443"
+webmin_port: "443"
 
 # Set SSL enabled?  Webmin use 1 for true and 0 for false in config
 webmin_ssl: "1"
 
 #If behind reverse proxy, add referer URL here
 webmin_reverse_proxy_referer: ''
+
+#target ssl cert,key path
+target_cert_path: "/etc/ssl"
+
+#source ssl cert,key path
+src_cert_file: "/path/to/cert/"
+
+
