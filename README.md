@@ -34,7 +34,8 @@ The following configurations are applied to `/etc/webmin/miniserv.conf`:
 - **Listen Address**: The IP address Webmin listens on.
 - **SSL**: Whether SSL is enabled or disabled.
 - **Reverse Proxy Referer**: Optionally set a referer for reverse proxying.
-
+### Configuration SSL
+copies the SSL certificates from the Ansible controller to the target machines. It ensures that the required certificates and keys are securely transferred and placed in the appropriate directories on the target systems.
 
 # Shorewall Rules for Webmin Access
 
