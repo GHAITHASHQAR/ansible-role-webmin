@@ -74,7 +74,7 @@ shorewall restart
 Try accessing Webmin via:
 
 ```sh
-https://your-server-ip:443
+https://your-server-ip
 ```
 
 This ensures Webmin is accessible while maintaining firewall security.
