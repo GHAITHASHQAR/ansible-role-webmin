@@ -16,8 +16,8 @@ This Ansible role automates the installation and configuration of **Webmin** on 
 | `webmin_listen`               | `0.0.0.0`             | IP address Webmin listens on. |
 | `webmin_ssl`                  | `1`                   | Enable or disable SSL (1 = enabled, 0 = disabled). |
 | `webmin_reverse_proxy_referer`| Not defined           | A comma-separated list of reverse proxy referers. |
-| `target_cert_path`            |  `/etc/ssl`           | A comma-separated list of reverse proxy referers. |
-| `src_cert_file`               | `/path/to/cert/`      | A comma-separated list of reverse proxy referers. |
+| `target_cert_path`            |  `/etc/ssl`           | Path where the SSL certificates will be stored. |
+| `src_cert_file`               | `/path/to/cert/`      | Path to the+ directory where the certificates are stored. |
 ## Tasks Overview
 
 ### Dependencies Installation
