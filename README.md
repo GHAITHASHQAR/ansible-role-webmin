@@ -1,6 +1,10 @@
 # Ansible Role: Webmin
 
-This Ansible role automates the installation and configuration of **Webmin** on Ubuntu systems. It includes the installation of dependencies, repository configuration, Webmin setup, and configuration options.
+## Introduction
+
+**Webmin** is a web-based system administration tool for Unix-like operating systems. It provides a graphical interface to configure system settings such as user accounts, Apache, DNS, file sharing, and much more. Webmin is particularly useful for administrators who prefer a web-based management interface over command-line interactions. With Webmin, system administration becomes easier, as users can manage servers remotely via a web browser.
+
+This Ansible role automates the installation and configuration of **Webmin** on Ubuntu systems. It ensures that Webmin is correctly set up with the necessary dependencies, repository configurations, and security settings. The role also provides options for SSL configuration, firewall rule adjustments, and reverse proxy settings.
 
 ## Requirements
 
@@ -12,19 +16,20 @@ This Ansible role automates the installation and configuration of **Webmin** on 
 
 | Variable                       | Default Value          | Description |
 |--------------------------------|------------------------|-------------|
-| `webmin_port`                 | `443`               | Port on which Webmin will be accessible. |
-| `webmin_listen`               | `0.0.0.0`             | IP address Webmin listens on. |
-| `webmin_ssl`                  | `1`                   | Enable or disable SSL (1 = enabled, 0 = disabled). |
-| `webmin_reverse_proxy_referer`| Not defined           | A comma-separated list of reverse proxy referers. |
-| `target_cert_path`            |  `/etc/ssl`           | Path where the SSL certificates will be stored. |
-| `src_cert_file`               | `/path/to/cert/`      | Path to the directory where the certificates are stored. |
+| `webmin_port`                 | `443`                  | Port on which Webmin will be accessible. |
+| `webmin_listen`               | `0.0.0.0`              | IP address Webmin listens on. |
+| `webmin_ssl`                  | `1`                    | Enable or disable SSL (1 = enabled, 0 = disabled). |
+| `webmin_reverse_proxy_referer`| Not defined            | A comma-separated list of reverse proxy referers. |
+| `target_cert_path`            | `/etc/ssl`             | Path where the SSL certificates will be stored. |
+| `src_cert_file`               | `/path/to/cert/`       | Path to the directory where the certificates are stored. |
+
 ## Tasks Overview
 
 ### Dependencies Installation
 The role installs essential packages required for Webmin to function properly, including Perl, SSL libraries, and PAM authentication modules.
 
 ### Repository Configuration
-The Webmin repository is added and the GPG key is installed to authenticate packages.
+The Webmin repository is added, and the GPG key is installed to authenticate packages.
 
 ### Webmin Installation
 The Webmin package is installed from the repository and configured based on user-defined variables.
@@ -35,38 +40,18 @@ The following configurations are applied to `/etc/webmin/miniserv.conf`:
 - **Listen Address**: The IP address Webmin listens on.
 - **SSL**: Whether SSL is enabled or disabled.
 - **Reverse Proxy Referer**: Optionally set a referer for reverse proxying.
-### Configuration SSL
-copies the SSL certificates from the Ansible controller to the target machines. It ensures that the required certificates and keys are securely transferred and placed in the appropriate directories on the target systems.
 
-# Shorewall Rules for Webmin Access
-
-To ensure Webmin is accessible on port **443**, the Shorewall(firewall) rules must be added.
-
-## Restart Shorewall
-After adding the rules, apply the changes by restarting Shorewall:
-
-```sh
-shorewall restart
-```
-
-## Testing Access
-Try accessing Webmin via:
-
-```sh
-https://your-server-ip
-```
-
-This ensures Webmin is accessible while maintaining firewall security.
-
----
-**Note:** Without these rules, Shorewall may block access to Webmin when the firewall is active.
+### SSL Configuration
+The role copies the SSL certificates from the Ansible controller to the target machines. It ensures that the required certificates and keys are securely transferred and placed in the appropriate directories on the target systems.
 
 ### Service Verification
 The role ensures Webmin is started and waits for the configured port to become accessible.
 
+---
+**Note:** Ensure that your firewall is configured to allow access to Webmin on the specified port. Without the appropriate rules, access to Webmin may be blocked when the firewall is active.
+
 ## Handlers
 - `restart webmin`: Restarts the Webmin service after configuration changes.
-
 
 ## Tags
 
@@ -82,3 +67,4 @@ MIT
 ## Author
 
 Maintained by [AIT-CS IaaS](https://github.com/ait-cs-IaaS).
+
