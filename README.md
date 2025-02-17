@@ -39,29 +39,7 @@ copies the SSL certificates from the Ansible controller to the target machines. 
 
 # Shorewall Rules for Webmin Access
 
-To ensure Webmin is accessible on port **443**, the following Shorewall rules need to be added.
-
-## Internal Firewall Access (Soc Network to Firewall)
-If accessing Webmin from an internal network, add the following rule:
-
-```sh
-ACCEPT   Soc   $FW   tcp   443
-```
-
-- **Soc** → Internal network zone.
-- **$FW** → The firewall (server itself).
-- **tcp 443** → Allows HTTPS access.
-
-## External Firewall Access (DMZ to Firewall)
-If accessing Webmin from a **DMZ (Demilitarized Zone)** or an external source, add:
-
-```sh
-ACCEPT   dmz   $FW   tcp   443
-```
-
-- **dmz** → Represents traffic from the DMZ.
-- **$FW** → The firewall (server itself).
-- **tcp 443** → Allows HTTPS access.
+To ensure Webmin is accessible on port **443**, the Shorewall(firewall) rules must be added.
 
 ## Restart Shorewall
 After adding the rules, apply the changes by restarting Shorewall:
